@@ -1,0 +1,80 @@
+html, body {
+    margin: 20px;
+}
+
+.row {
+  border: none;
+  margin: 0px;
+}
+.container {
+  margin-bottom: 4px;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+.welcome {
+  color: #e7624b;
+  line-height: 50px;
+  margin: 0px;
+  text-align: center;
+}
+
+
+.list-container {
+  margin: 4px;
+  padding: 2px;
+}
+.list-header {
+  border: none;
+  background-color: #563d7c;
+  color: white;
+  margin: 0px;
+  opacity: .7;
+  padding: 4px;
+}
+
+.drag-target {
+  background-color: white;
+  border: none;
+  display: none;
+  margin: 0px;
+  min-height: 28px;
+}
+
+.sortable-list-item, .sortable-list-item.drag-hovering {
+  background-color: white;
+  border: none;
+  margin: 0px;
+}
+.sortable-list-item:nth-of-type(odd) {
+  background-color: #E9E2F8;
+}
+.sortable-list-item.dragging {
+  background-color: plum;
+  opacity: 1;
+}
+
+.sortable-list-item-content {
+}
+.sortable-list-item .cell {
+  display: inline-block;
+}
+.sortable-list-item .color-name {
+  padding: 4px;
+  width: 30%;
+}
+.sortable-list-item .color-hex {
+  padding: 4px;
+}
+.sortable-list-item .color-sample {
+  float: right;
+  height: 28px;
+  width: 40%;
+}
+
+.sortable-list-drop-zone {
+  background-color: #E9E2F8;
+  border: none;
+  margin: 0px;
+  min-height: 88px;
+}

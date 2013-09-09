@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ember Sortable List</title>
+  <link rel="stylesheet" href="css/bootstrap3.0.min.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <script type="text/x-handlebars">
+    <h2 class='welcome'>Welcome to Ember.js</h2>
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="index">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 container">
+        <div class="row">
+          <div class="col-md-6 list-container">
+            <div class='list-header'> Colors </div>
+            {{outlet left}}
+          </div>
+          <div class="col-md-4 list-container pull-right">
+            {{outlet right}}
+          </div>
+        </div>
+      </div>
+    </div> 
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="colors">
+    {{#each color in controller itemViewClass="App.ColorView"}}
+      {{#with color.content}}
+      <div class='drag-target'> </div>
+      <div class='sortable-list-item-content'>
+        <div class='cell color-name'> {{color_name}} </div>
+        <div class='cell color-hex'> {{hex}} </div>
+        {{view App.ColorSampleView}} 
+      </div>
+      {{/with}}
+    {{/each}}
+    {{#view 'App.ColorsDropZoneView'}}
+      <div class='drag-target'> </div>
+      <div class='sortable-list-drop-zone'>
+        {{#unless content}} 
+          <h4 class='empty-message'> Drag items here </h4>
+        {{/unless}}
+      </div>
+    {{/view}}
+  </script>
+
+
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/handlebars-1.0.0.js"></script>
+  <script src="js/libs/ember-1.0.0.js"></script>
+  <script src="js/sortable.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
