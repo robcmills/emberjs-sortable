@@ -1,22 +1,13 @@
 Sortable = Ember.Namespace.create();
 
-Sortable.cancel = function(event) {
-  event.preventDefault();
-  return false;
-};
-
 Sortable.ListItemView = Ember.Mixin.create({
   attributeBindings: 'draggable',
   draggable: 'true',
   classNameBindings: [':sortable-list-item', 'controller.isDragging:dragging', 
     'controller.isDragHovering:drag-hovering'],
 
-
   dragStart: function(event) {
-    console.log('listItem dragStart');
     var c = this.get('controller');
-    // var listItems = c.get('controllers.ListItems');
-
     c.set('isDragging', true);
     $(this.get('element')).addClass('dragging');
     
@@ -24,26 +15,20 @@ Sortable.ListItemView = Ember.Mixin.create({
     dataTransfer.setData('Text', this.get('elementId'));
   },
   dragEnd: function(event) {
-    console.log('listItem dragEnd');
     this.get('controller.parentController').resetDrag();
   },
-
   drop: function(event) {
-    console.log('listItem drop');
     var c = this.get('controller');
     var list = c.get('parentController');
 
     var targetIndex = list.get('content').indexOf(c.get('content'));
     list.addDragItem(event, targetIndex);
-
     list.resetDrag();
 
     event.preventDefault();
     return false;
   }, 
-  
   dragEnter: function(event) {
-    console.log('listItem dragEnter');
     var c = this.get('controller');
     var list = c.get('parentController');
     list.incrementProperty('dragCount');
@@ -80,7 +65,6 @@ Sortable.ListItemView = Ember.Mixin.create({
     return false;
   },
   dragLeave: function(event) {
-    console.log('listItem dragLeave');
     var c = this.get('controller');
     var list = c.get('parentController');
     list.decrementProperty('dragCount');
@@ -102,14 +86,13 @@ Sortable.ListItemView = Ember.Mixin.create({
 });
 
 Sortable.ListItemController = Ember.Mixin.create({
-  //needs: ['list'],
   isDragging: false,
   isDragHovering: false,
   isHidden: false,
 
   addItem: function() {
-    // var list = this.get('controllers.list');
-    //list.addItem(this.get('content'));
+    // var list = this.get('parentControllers');
+    // list.addItem(this.get('content'));
   },
 
   removeItem: function() {
@@ -125,22 +108,10 @@ Sortable.ListItemController = Ember.Mixin.create({
 });
 
 
-// Sortable.ListView = Ember.Mixin.create({
-//   classNames: ['sortable-list'],
-// });
-
-
-// list arrayController ?
 Sortable.ListController = Ember.Mixin.create({
-  //needs: ['listItem'],
-  //contentBinding: 'controllers.gameMissionList.content.missions',
-  //itemController: 'listItem',
   dragCount: 0,
-  // sortAscending: null,
-  // sortProperties: null,
 
   addDragItem: function(event, targetIndex) {
-    console.log('list addDragItem');
     var dragItemId = event.originalEvent.dataTransfer.getData('Text');
     var dragItem = (Ember.View.views[dragItemId]).get('controller');
 
@@ -152,11 +123,9 @@ Sortable.ListController = Ember.Mixin.create({
       if(existsIndex === targetIndex - 1) { return; }
       this.get('content').removeAt(existsIndex);
       if(targetIndex >= existsIndex) { targetIndex--; }
-
-      this.get('content').insertAt(targetIndex, dragItem.get('content'));
-      //this.save();
-      return;
-    }
+    } 
+    this.get('content').insertAt(targetIndex, dragItem.get('content'));
+    return;
     //this.save();
   },
 
@@ -176,8 +145,6 @@ Sortable.ListController = Ember.Mixin.create({
   },    
 
   resetDrag: function() {
-    console.log('resetDrag');
-    //var list = this.get('controllers.gameMissionListItems');
     this.set('dragCount', 0);
     this.forEach(function(item){
       item.setProperties({
@@ -194,15 +161,11 @@ Sortable.ListController = Ember.Mixin.create({
  });
 
 Sortable.DropZoneView = Ember.Mixin.create({
-
   dragEnter: function(event) {
-    //if($(event.target).hasClass('drag-target')) { return false; }
-    console.log('dropZone dragEnter');
     var list = this.get('controller');
     list.set('isDragHovering', true);
     list.incrementProperty('dragCount');
 
-    // hide dragMission 
     var dragItem = list.findProperty('isDragging', true);
     if(dragItem) { 
       $('.sortable-list-item.dragging').hide();
@@ -218,7 +181,6 @@ Sortable.DropZoneView = Ember.Mixin.create({
     return false;
   },
   dragLeave: function(event) {
-    console.log('dropZone dragLeave');
     var list = this.get('controller');
     list.decrementProperty('dragCount');
     list.set('isDragHovering', false);
@@ -228,7 +190,6 @@ Sortable.DropZoneView = Ember.Mixin.create({
     return false;
   },
   drop: function(event) {
-    console.log('dropZone drop');
     this.get('controller').addDragItem(event);
     this.get('controller').resetDrag();
 

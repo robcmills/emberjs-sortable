@@ -22,7 +22,8 @@
             <div class='list-header'> Colors </div>
             {{outlet left}}
           </div>
-          <div class="col-md-4 list-container pull-right">
+          <div class="col-md-4 swatch-container pull-right">
+            <div class='swatch-header'> Swatch </div>
             {{outlet right}}
           </div>
         </div>
@@ -51,6 +52,24 @@
     {{/view}}
   </script>
 
+  <script type="text/x-handlebars" data-template-name="swatch">
+    {{#each color in controller itemViewClass="App.SwatchColorView"}}
+      {{#with color.content}}
+      <div class='drag-target'> </div>
+      <div class='swatch-item-content'>
+        {{view App.ColorSampleView}} 
+      </div>
+      {{/with}}
+    {{/each}}
+    {{#view 'App.SwatchDropZoneView'}}
+      <div class='drag-target'> </div>
+      <div class='swatch-drop-zone'>
+        {{#unless content}} 
+          <h4 class='empty-message'> Drag items here </h4>
+        {{/unless}}
+      </div>
+    {{/view}}
+  </script>
 
   <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/handlebars-1.0.0.js"></script>

@@ -10,6 +10,9 @@ App.IndexRoute = Ember.Route.extend({
     this.render('colors', {
       into: 'index', outlet: 'left', controller: 'colors'
     });
+    this.render('swatch', {
+      into: 'index', outlet: 'right', controller: 'swatch'
+    });
   },
   setupController: function() {
     this.controllerFor('colors').set('content', [
@@ -19,6 +22,7 @@ App.IndexRoute = Ember.Route.extend({
       {color_name: 'DeepSkyBlue', hex: '#00BFFF'}, 
       {color_name: 'ForestGreen', hex: '#228B22'}, 
     ]);
+    this.controllerFor('swatch').set('content', []);
   },
 });
 
@@ -43,3 +47,16 @@ App.ColorSampleView = Ember.View.extend({
     return 'background-color:' + this.get('controller.content.hex');
   }.property('content.hex'),
 });
+
+App.SwatchColorView = Ember.View.extend(Sortable.ListItemView, {});
+
+App.SwatchColorController = Ember.Controller.extend(Sortable.ListItemController, {});
+
+// App.SwatchView = Ember.View.extend(Sortable.ListView, {
+// });
+
+App.SwatchController = Ember.ArrayController.extend(Sortable.ListController, {
+  itemController: 'swatchColor',
+});
+
+App.SwatchDropZoneView = Ember.View.extend(Sortable.DropZoneView, {});

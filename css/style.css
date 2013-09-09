@@ -11,14 +11,12 @@ html, body {
   margin-top: 0px;
   padding: 0px;
 }
-
 .welcome {
   color: #e7624b;
   line-height: 50px;
   margin: 0px;
   text-align: center;
 }
-
 
 .list-container {
   margin: 4px;
@@ -74,6 +72,36 @@ html, body {
 
 .sortable-list-drop-zone {
   background-color: #E9E2F8;
+  border: none;
+  margin: 0px;
+  min-height: 88px;
+}
+
+.empty-message {
+  margin: 0px;
+  padding: 4px;
+}
+
+.swatch-container {
+  margin: 4px;
+  padding: 2px;
+}
+.swatch-header {
+  background-color: #e7624b;
+  color: white;
+  padding: 4px;
+}
+.swatch-container .sortable-list-item {
+  min-height: 28px;
+}
+.swatch-item-content {
+
+}
+.swatch-container .color-sample {
+  width: 100%;
+}
+.swatch-drop-zone {
+  background-color: #FAE0DB;
   border: none;
   margin: 0px;
   min-height: 88px;
